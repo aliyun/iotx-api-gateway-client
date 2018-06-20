@@ -4,7 +4,7 @@
 
 # 协议框架
 
-```
+```json
     {
         "id": "1509086454180",
         "version": "1.0",
@@ -16,31 +16,35 @@
 **id**: 一次请求的标示，用于请求跟踪问题排查，通常用UUID生成<br/>
 **version**: 协议版本，当前版本1.0<br/>
 **request**: JSON对象，与业务无关的通用参数，包括如下可用参数<br/>
-| 参数 	| 是否必填 	| 参数描述 	|<br/>
-|:---|:---|:---|<br/>
-| apiVer 	| 是 	| API版本 	|<br/>
-| iotToken 	| 否 	| 登录用户的token（客户端） 	|<br/>
-| cloudToken 	| 否 	| 云端资源token（云端） 	|<br/>
-| language 	| 否 	| 国际化扩展，语言。 	|<br/>
-| locale 	| 否 	| 国际化扩展，地理位置、ip。 	|<br/>
+
+*apiVer*:API版本 必填<br/>
+*iotToken*:登录用户的token（客户端） 非必填<br/>
+*cloudToken*:云端资源token（云端）  非必填<br/>
+*language*:国际化扩展，语言。 	 非必填<br/>
+*locale*:国际化扩展，地理位置、ip。 非必填<br/>
 
 **params**: JSON对象，访问指定api的业务参数<br/>
 # 示例
 假设您需要访问IoT网关提供的如下API：<br/>
-**定义描述**
-| path 	| 版本 	| 描述 	| 是否需要用户身份的鉴权|<br/>
-|:---|:---|:---|:---|<br/>
-|/awss/enrollee/list/get|1.0.2|分页查询发现设备列表，用于配网流程|是，客户端SDK需启用身份的鉴权|<br/>
-**请求参数**
-| 参数 	| 类型 | 是否必填 	| 参数描述 	|<br/>
-|:---|:---|:---|:---|<br/>
+**定义描述**<br/>
+```
+    path:/awss/enrollee/list/get<br/>
+    版本:1.0.2<br/>
+    描述:分页查询发现设备列表，用于配网流程<br/>
+    鉴权:是，客户端SDK需启用身份的鉴权<br/>
+```
+    
+**请求参数**<br/>
+```
 |pageSize|Integer|是|分页大小|<br/>
 |pageNum|Integer|是|页编号|<br/>
+```
+
 
 **请求示例**
 版本1.0.2对应request中的apiVer，由于API要求用户身份验证，request中必须包含参数iotToken。请求参数统一放到params中。
 
-```
+```json
 {
     "id": "1509086454180",
     "version": "1.0",
@@ -49,7 +53,7 @@
         "iotToken": "token"
     },
     "params": {
-        "pageSize": 10，
+        "pageSize": 10,
         "pageNum": 1
     }
 }
