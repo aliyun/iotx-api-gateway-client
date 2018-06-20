@@ -1,6 +1,6 @@
 
 # 介绍
-阿里云IoT网关，旨在通过http/https的协议将物联网通用套件及衍生服务开放给开发者。本文档主要介绍如何访问阿里云IoT网关。IoT网关依赖阿里云API网关，IoT网关在阿里云API网关的基础上扩展了IoT的特殊协议。
+阿里云IoT网关，旨在通过http/https的协议将[物联网套件](https://help.aliyun.com/product/30520.html?spm=a2c4g.750001.7.4.XRrIyT)及衍生服务开放给开发者。本文档主要介绍如何访问阿里云IoT网关。IoT网关依赖阿里云[API网关](https://help.aliyun.com/product/29462.html?spm=a2c4g.750001.3.44.ieDVIY)，IoT网关在阿里云API网关的基础上扩展了IoT的特殊协议。
 
 # 协议框架
 
