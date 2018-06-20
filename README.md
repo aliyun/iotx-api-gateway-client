@@ -28,16 +28,16 @@
 假设您需要访问IoT网关提供的如下API：<br/>
 **定义描述**<br/>
 ```
-    path:/awss/enrollee/list/get<br/>
-    版本:1.0.2<br/>
-    描述:分页查询发现设备列表，用于配网流程<br/>
-    鉴权:是，客户端SDK需启用身份的鉴权<br/>
+    path:/awss/enrollee/list/get
+    版本:1.0.2
+    描述:分页查询发现设备列表，用于配网流程
+    鉴权:是，客户端SDK需启用身份的鉴权
 ```
     
 **请求参数**<br/>
 ```
-|pageSize|Integer|是|分页大小|<br/>
-|pageNum|Integer|是|页编号|<br/>
+参数名称:pageSize,参数类型:Integer,是否必填:是,描述:分页大小
+参数名称:pageNum,参数类型:Integer,是否必填:是,描述:页编号
 ```
 
 
@@ -61,7 +61,7 @@
 
 假设您已经拥有了访问IoT网关的appKey和appSecret 分别为appkey1和appsecret1，通过IoT网关访问如下：
 ```
-		SyncApiClient syncClient = SyncApiClient.newBuilder()
+        SyncApiClient syncClient = SyncApiClient.newBuilder()
             .appKey("appkey1")
             .appSecret("appsecret1")
             .build();
