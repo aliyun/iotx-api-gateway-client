@@ -16,58 +16,44 @@ package com.aliyun.iotx.api.client;
  */
 
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.Map;
 
-import com.alibaba.cloudapi.sdk.core.BaseApiClient;
-import com.alibaba.cloudapi.sdk.core.BaseApiClientBuilder;
-import com.alibaba.cloudapi.sdk.core.annotation.NotThreadSafe;
-import com.alibaba.cloudapi.sdk.core.annotation.ThreadSafe;
-import com.alibaba.cloudapi.sdk.core.enums.Method;
-import com.alibaba.cloudapi.sdk.core.enums.Scheme;
-import com.alibaba.cloudapi.sdk.core.model.ApiRequest;
-import com.alibaba.cloudapi.sdk.core.model.ApiResponse;
-import com.alibaba.cloudapi.sdk.core.model.BuilderParams;
+import com.alibaba.cloudapi.sdk.annotation.ThreadSafe;
+import com.alibaba.cloudapi.sdk.client.ApacheHttpClient;
+import com.alibaba.cloudapi.sdk.enums.HttpMethod;
+import com.alibaba.cloudapi.sdk.enums.Scheme;
+import com.alibaba.cloudapi.sdk.model.ApiRequest;
+import com.alibaba.cloudapi.sdk.model.ApiResponse;
 import com.alibaba.fastjson.JSONObject;
+
+import static com.alibaba.cloudapi.sdk.enums.HttpConnectionModel.MULTIPLE_CONNECTION;
 
 /**
  * @author zhongfu.xiezf
  */
 @ThreadSafe
-public final class SyncApiClient extends BaseApiClient {
+public final class SyncApiClient extends ApacheHttpClient {
 
-    private SyncApiClient(BuilderParams builderParams) {
-        super(builderParams);
-    }
-
-    @NotThreadSafe
-    public static class Builder extends BaseApiClientBuilder<Builder, SyncApiClient> {
-
-        @Override
-        protected SyncApiClient build(BuilderParams params) {
-            return new SyncApiClient(params);
-        }
-    }
-
-    public static Builder newBuilder() {
-        return new Builder();
-    }
-
-    public static SyncApiClient getInstance() {
-        return getApiClassInstance(SyncApiClient.class);
+    public SyncApiClient(IoTApiClientBuilderParams builderParams) {
+        super.init(builderParams);
     }
 
     public ApiResponse postBody(String host, String path, IoTApiRequest request, boolean isHttps,
                                 Map<String, String> headers)
         throws UnsupportedEncodingException {
         byte[] body = JSONObject.toJSONString(request).getBytes("UTF-8");
-        ApiRequest apiRequest = new ApiRequest(isHttps ? Scheme.HTTPS : Scheme.HTTP, Method.POST_BODY, host, path,
+        ApiRequest apiRequest = new ApiRequest(HttpMethod.POST_BODY, path,
             body);
+        apiRequest.setHttpConnectionMode(MULTIPLE_CONNECTION);
+        apiRequest.setScheme(isHttps ? Scheme.HTTPS : Scheme.HTTP);
+        apiRequest.setHost(host);
         if (null != headers && headers.size() > 0) {
             for (Map.Entry<String, String> header : headers.entrySet()) {
-                apiRequest.getHeaders().put(header.getKey(), header.getValue());
+                apiRequest.getHeaders().put(header.getKey(), Arrays.asList(header.getValue()));
             }
         }
-        return syncInvoke(apiRequest);
+        return sendSyncRequest(apiRequest);
     }
 
     public ApiResponse postBody(String host, String path, IoTApiRequest request, boolean isHttps)

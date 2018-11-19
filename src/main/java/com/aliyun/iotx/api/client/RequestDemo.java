@@ -18,8 +18,9 @@ package com.aliyun.iotx.api.client;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
-import com.alibaba.cloudapi.sdk.core.model.ApiResponse;
+import com.alibaba.cloudapi.sdk.model.ApiResponse;
 
 /**
  * @author zhongfu.xiezf
@@ -27,10 +28,15 @@ import com.alibaba.cloudapi.sdk.core.model.ApiResponse;
 public class RequestDemo {
 
     public static void main(String[] args) throws UnsupportedEncodingException {
-        SyncApiClient syncClient = SyncApiClient.newBuilder()
-            .appKey("xxxxxxx")
-            .appSecret("xxxxxxxxxx")
-            .build();
+        postRequestDemo();
+        getRequestDemo();
+    }
+
+    public static void postRequestDemo() throws UnsupportedEncodingException {
+        IoTApiClientBuilderParams builderParams = new IoTApiClientBuilderParams();
+        builderParams.setAppKey("xxxx");
+        builderParams.setAppSecret("xxxx");
+        SyncApiClient syncClient = new SyncApiClient(builderParams);
 
         IoTApiRequest request = new IoTApiRequest();
         //设置api的版本
@@ -38,7 +44,7 @@ public class RequestDemo {
         request.setId("42423423");
 
         //如果需要登陆，设置当前的会话的token
-        request.setIoTToken("xxxxxxxxxxxxxxx");
+        request.setIotToken("xxxxxxxxxxxxxxx");
 
         //设置参数
         request.putParam("xxxx", "xxxxx");
@@ -49,7 +55,33 @@ public class RequestDemo {
         ApiResponse response = syncClient.postBody(host, path, request);
 
         System.out.println(
-            "response code = " + response.getStatusCode() + " response content = " + new String(response.getBody(),
+            "response code = " + response.getCode() + " response content = " + new String(response.getBody(),
+                "utf-8"));
+    }
+
+    public static void getRequestDemo() throws UnsupportedEncodingException {
+        IoTApiClientBuilderParams builderParams = new IoTApiClientBuilderParams();
+        builderParams.setAppKey("xxxx");
+        builderParams.setAppSecret("xxxx");
+        SyncApiGetClient syncClient = new SyncApiGetClient(builderParams);
+
+        Map<String, String> headers = new HashMap<>(8);
+
+        Map<String, String> querys = new HashMap<>(8);
+        // 必填
+        querys.put("apiVer", "1.0.0");
+        querys.put("id", UUID.randomUUID().toString());
+        // 可选
+        querys.put("iotToken", "XXXXXXXXXX");
+        querys.put("xxxxx", "xxxxxx");
+
+        //请求参数域名、path、request
+        String host = "xxx.xxx.xxx:8080";
+        String path = "/xxxx/xxxx/xxxx";
+        ApiResponse response = syncClient.doGet(host, path, true, headers, querys);
+
+        System.out.println(
+            "response code = " + response.getCode() + " response content = " + new String(response.getBody(),
                 "utf-8"));
     }
 }

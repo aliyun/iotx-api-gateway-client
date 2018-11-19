@@ -61,32 +61,31 @@
 
 假设您已经拥有了访问IoT网关的appKey和appSecret 分别为appkey1和appsecret1，通过IoT网关访问如下：
 ```
-        SyncApiClient syncClient = SyncApiClient.newBuilder()
-            .appKey("appkey1")
-            .appSecret("appsecret1")
-            .build();
+        IoTApiClientBuilderParams ioTApiClientBuilderParams = new IoTApiClientBuilderParams();
+
+        ioTApiClientBuilderParams.setAppKey("xxxx");
+        ioTApiClientBuilderParams.setAppSecret("xxxxxxxxxx");
+
+        SyncApiClient syncApiClient = new SyncApiClient(ioTApiClientBuilderParams);
 
         IoTApiRequest request = new IoTApiRequest();
-        //设置api的版本
-        request.setApiVer("1.0.2");
-        request.setId("123456");
+        //设置协议版本号
+        request.setVersion("1.0");
+        String uuid = UUID.randomUUID().toString();
+        String id = uuid.replace("-", "");
+        //设置请求ID
+        request.setId(id);
+        //设置API版本号
+        request.setApiVer("1.0.0");
+        //以下为具体API接口的业务参数设置。API 业务参数请参见各API接口文档。
+        request.putParam("appId", "xxxxxxxxxxxxxxxxxxxxxxx");
 
-        //如果需要登陆，设置当前的会话的token，token通过登录api获取
-        request.setIoTToken("token");
+        Map<String, String> headers = new HashMap<>(8);
 
-        //设置参数
-        request.putParam("pageSize", 10);
-        request.putParam("pageNum", 1);
-        
+        //设置请求参数域名、path、request ,如果使用HTTPS，设置为true
+        ApiResponse response = syncApiClient.postBody("api.link.aliyun.com", "/app/user/info/get", request, true, headers);
 
-        //请求参数域名、path
-        String host = "api.link.aliyun.com";
-        String path = "/awss/enrollee/list/get";
-        ApiResponse response = syncClient.postBody(host, path, request);
-
-        System.out.println(
-            "response code = " + response.getStatusCode() + " response content = " + new String(response.getBody(),
-                "utf-8"));
+        System.out.println( "response code = " + response.getCode() + " response = " + new String(response.getBody(), "UTF-8"));
 ```
 
 # 依赖
@@ -94,6 +93,6 @@
 <dependency>
     <groupId>com.aliyun.api.gateway</groupId>
     <artifactId>sdk-core-java</artifactId>
-    <version>1.0.4</version>
+    <version>1.1.0</version>
 </dependency>
 ```

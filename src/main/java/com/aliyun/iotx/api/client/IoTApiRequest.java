@@ -10,8 +10,8 @@ import java.util.UUID;
 public class IoTApiRequest {
     private String id;
     private String version = "1.0";
-    private Map<String, Object> request = new HashMap<>();
-    private Map<String, Object> params = new HashMap<>();
+    private Map<String, Object> request = new HashMap<String, Object>();
+    private Map<String, Object> params = new HashMap<String, Object>();
 
     public IoTApiRequest() {
         id = UUID.randomUUID().toString();
@@ -53,8 +53,12 @@ public class IoTApiRequest {
         request.put("apiVer", apiVer);
     }
 
-    public void setIoTToken(String ioTToken) {
-        request.put("ioTToken", ioTToken);
+    public void setIotToken(String iotToken) {
+        request.put("iotToken", iotToken);
+    }
+
+    public void setCloudToken(String cloudToken) {
+        request.put("cloudToken", cloudToken);
     }
 
     public void putParam(String key, Object value) {

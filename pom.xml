@@ -31,7 +31,7 @@
         <dependency>
             <groupId>com.aliyun.api.gateway</groupId>
             <artifactId>sdk-core-java</artifactId>
-            <version>1.0.4</version>
+            <version>1.1.0</version>
         </dependency>
 
 
