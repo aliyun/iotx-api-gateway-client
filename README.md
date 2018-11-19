@@ -76,14 +76,17 @@
         //设置请求ID
         request.setId(id);
         //设置API版本号
-        request.setApiVer("1.0.0");
-        //以下为具体API接口的业务参数设置。API 业务参数请参见各API接口文档。
-        request.putParam("appId", "xxxxxxxxxxxxxxxxxxxxxxx");
+        request.setApiVer("1.0.2");
+        //如果需要登陆，设置当前的会话的token，token通过登录api获取
+        request.setIoTToken("token");
+        //设置参数
+        request.putParam("pageSize", 10);
+        request.putParam("pageNum", 1);
 
         Map<String, String> headers = new HashMap<>(8);
 
         //设置请求参数域名、path、request ,如果使用HTTPS，设置为true
-        ApiResponse response = syncApiClient.postBody("api.link.aliyun.com", "/app/user/info/get", request, true, headers);
+        ApiResponse response = syncApiClient.postBody("api.link.aliyun.com", "/awss/enrollee/list/get", request, true, headers);
 
         System.out.println( "response code = " + response.getCode() + " response = " + new String(response.getBody(), "UTF-8"));
 ```
