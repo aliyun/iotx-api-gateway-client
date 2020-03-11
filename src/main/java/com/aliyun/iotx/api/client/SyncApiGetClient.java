@@ -12,8 +12,7 @@ import java.util.Map;
 import static com.alibaba.cloudapi.sdk.enums.HttpConnectionModel.MULTIPLE_CONNECTION;
 
 /**
- * @author zhenzhao.czz
- * @date 2018/2/2
+ * @author zhenzhao.czz on 2018/2/2
  */
 public class SyncApiGetClient extends ApacheHttpClient {
 
