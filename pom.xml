@@ -7,7 +7,7 @@
     <artifactId>iot-api-gateway-client</artifactId>
     <packaging>jar</packaging>
     <name>iot-api-gateway-client</name>
-    <version>1.0.5</version>
+    <version>1.0.4</version>
 
     <description>Aliyun IoT ApiGateway SDK for Java
 
@@ -45,6 +45,12 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
+
+    <scm>
+        <connection></connection>
+        <developerConnection></developerConnection>
+        <url></url>
+    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
