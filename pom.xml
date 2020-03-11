@@ -6,8 +6,8 @@
     <groupId>com.aliyun</groupId>
     <artifactId>iot-api-gateway-client</artifactId>
     <packaging>jar</packaging>
-    <name>iotx-api-gateway-client</name>
-    <version>1.0.4</version>
+    <name>iot-api-gateway-client</name>
+    <version>1.0.5</version>
 
     <description>Aliyun IoT ApiGateway SDK for Java
 
