@@ -7,7 +7,7 @@
     <artifactId>iotx-api-gateway-client</artifactId>
     <packaging>jar</packaging>
     <name>iotx-api-gateway-client</name>
-    <version>1.0.0</version>
+    <version>1.0.4</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -19,7 +19,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.28</version>
+            <version>1.2.60</version>
         </dependency>
 
         <dependency>
